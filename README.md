@@ -8,6 +8,7 @@ Fragments is a platform to compose and manage custom data objects for HTTP trans
 
 ![Alt text](/screenshots/ui.png?raw=true "UI")
 
+![Alt text](/screenshots/flow.png?raw=true "Flow")
 
 ## Development
 
