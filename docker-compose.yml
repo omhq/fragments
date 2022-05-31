@@ -1,0 +1,89 @@
+version: "3.9"
+
+volumes:
+  fragments-postgres-data:
+    driver: local
+    name: fragments_data
+  fragments-django-static:
+    driver: local
+    name: fragments_static
+
+services:
+
+  postgres:
+    container_name: fragments-postgres
+    image: postgres:11
+    ports:
+      - 5432:5432
+    volumes:
+      - fragments-postgres-data:/var/lib/postgresql/data
+    env_file:
+      - dot_envs/postgres.env
+
+  redis:
+    container_name: redis
+    image: redis:7.0.0
+    command:
+      - redis-server
+      - --save 60 1
+      - --loglevel warning
+    ports:
+      - "6379:6379"
+
+  worker:
+    image: worker
+    build:
+      context: ./
+      dockerfile: ./worker/Dockerfile
+    volumes:
+      - ./keys/private_key.pem:/app/keys/private_key.pem
+      - ./utils/utils:/app/utils
+      - ./worker/worker.py:/app/worker.py
+      - ./cache:/home/cache
+    depends_on:
+      - redis
+    env_file:
+      - dot_envs/worker.env
+
+  flower:
+    image: mher/flower:latest
+    ports:
+      - 5555:5555
+    restart: unless-stopped
+    depends_on:
+      - worker
+      - redis
+    env_file:
+      - dot_envs/flower.env
+
+  server:
+    container_name: fragments-server
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./server/Dockerfile
+    image: corpulent/fragments-server:0.1.0
+    working_dir: /home
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./server/src:/home/server/
+      - ./keys:/home/keys
+      - ./utils/utils:/home/server/utils
+      - ./cache:/home/cache
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    env_file:
+      - dot_envs/server.env
+
+  frontend:
+    container_name: fragments-frontend
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    image: corpulent/fragments-frontend:0.1.0
+    ports:
+      - "80:80"
