@@ -53,11 +53,11 @@ build_server :
 
 
 # utils
-generate_keys :
+generate_key :
 	docker run \
 		--rm \
 		--name fragments-generate-keys \
 		-v ${PWD}/utils:/home/scripts \
 		-v ${PWD}/keys:/home/keys \
 		$(ORGANIZATION)/$(CONTAINER):$(VERSION) \
-		bash -c "python scripts/generate_keys.py"
+		bash -c "python scripts/generate_fernet_key.py"

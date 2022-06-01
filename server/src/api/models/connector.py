@@ -4,44 +4,25 @@ from chardet import detect
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.fernet import Fernet
+
 from django.db import models
 from organizations.models import Organization
 
 
 ENCRYPT_DATA = os.environ.get("ENCRYPT_DATA", "False").lower() == "true"
+ENCRYPTION_KEY = os.environ.get("ENCRYPTION_KEY", None)
 ENCODING = "utf-8"
 
 
 def encrypt_data(value):
-    with open("/home/keys/public_key.pem", "rb") as key_file:
-        public_key = serialization.load_pem_public_key(
-            key_file.read(), backend=default_backend()
-        )
-
-    return public_key.encrypt(
-        value,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA256()),
-            algorithm=hashes.SHA256(),
-            label=None,
-        ),
-    )
+    f = Fernet(ENCRYPTION_KEY)
+    return f.encrypt(value)
 
 
 def decrypt_data(value):
-    with open("/home/keys/private_key.pem", "rb") as key_file:
-        private_key = serialization.load_pem_private_key(
-            key_file.read(), password=None, backend=default_backend()
-        )
-
-    return private_key.decrypt(
-        value,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA256()),
-            algorithm=hashes.SHA256(),
-            label=None,
-        ),
-    )
+    f = Fernet(ENCRYPTION_KEY)
+    return f.decrypt(value)
 
 
 class DataField(models.BinaryField):
@@ -50,7 +31,7 @@ class DataField(models.BinaryField):
     def get_prep_value(self, value):
         as_bytes = value.encode(ENCODING)
 
-        if ENCRYPT_DATA:
+        if ENCRYPT_DATA and ENCRYPTION_KEY:
             return encrypt_data(as_bytes)
 
         return as_bytes
@@ -66,7 +47,7 @@ class DataField(models.BinaryField):
     def extract_value(self, value):
         as_bytes = bytes(value)
 
-        if ENCRYPT_DATA:
+        if ENCRYPT_DATA and ENCRYPTION_KEY:
             with contextlib.suppress(ValueError):
                 decrypted = decrypt_data(as_bytes)
                 return self.decode_value(decrypted)

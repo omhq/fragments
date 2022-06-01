@@ -33,3 +33,12 @@ By default, frontend will point to the server on http://localhost:9001/v1.
 ```bash
 npm install && npm run start
 ```
+
+### Encrypting connector secrets
+
+By default, the project uses simple symmetric fernet encryption.
+You can roll your own encryption strategy depending on your deployment setup.
+
+- `make generate_key`
+- Set `ENCRYPT_DATA=True` and `ENCRYPTION_KEY="your-generated-fernet-here"`.
+- `make up`
