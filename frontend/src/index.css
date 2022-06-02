@@ -27,7 +27,6 @@ body {
 
 ::-webkit-scrollbar-track {
   background-color: #fff;
-  border-radius: 100px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -35,6 +34,15 @@ body {
   border-radius: 100px;
   background-color: #cacaca;
   background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner,
+.dark ::-webkit-scrollbar-corner {
+  background: #1F2937;
+}
+
+.light ::-webkit-scrollbar-corner {
+  background: #fff;
 }
 
 .dark ::-webkit-scrollbar-track {
@@ -75,10 +83,10 @@ a {
   @apply text-blue-600;
 }
 
-.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
-  background: none !important;
+.cm-editor {
+  height: 100%
 }
 
-:not(pre) > code[class*="language-"], pre[class*="language-"] {
-  background: none;
+.ͼ1 .cm-content {
+  padding: 0;
 }

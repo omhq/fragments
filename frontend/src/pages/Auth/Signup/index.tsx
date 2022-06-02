@@ -205,7 +205,7 @@ const Signup = (props: IProfileProps) => {
               <button
                 onClick={() => formik.handleSubmit()}
                 type="button"
-                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-green-600 text-base font-medium text-white hover:bg-green-700 sm:w-auto text-sm"
+                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-green-600 text-sm font-medium text-white hover:bg-green-700 sm:w-auto text-sm"
               >
                 <div className="flex justify-center items-center space-x-2">
                   {signingUp &&

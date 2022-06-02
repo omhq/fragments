@@ -55,7 +55,7 @@ export default function ActionsDropDown(props: IActionsDropDownProps) {
           {() => (
             <>
               <div className="flex items-center">
-                <Menu.Button onClick={() => setOpen(!open)} className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 sm:w-auto text-sm">
+                <Menu.Button onClick={() => setOpen(!open)} className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-blue-600 text-sm font-medium text-white hover:bg-blue-700 sm:w-auto text-sm">
                   <span className="sr-only">Actions</span>
                   Actions
                   <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
@@ -82,15 +82,15 @@ export default function ActionsDropDown(props: IActionsDropDownProps) {
                           <div className="flex items-center space-x-2">
                             {(state.testing)
                               ?
-                                <>
-                                  <Spinner className="w-4 h-4 text-blue-300" />
-                                  <span>Testing...</span>
-                                </>
+                              <>
+                                <Spinner className="w-4 h-4 text-blue-300" />
+                                <span>Testing...</span>
+                              </>
                               :
-                                <>
-                                  <BeakerIcon className="w-4 h-4 text-gray-500" />
-                                  <span>Test</span>
-                                </>
+                              <>
+                                <BeakerIcon className="w-4 h-4 text-gray-500" />
+                                <span>Test</span>
+                              </>
                             }
                           </div>
                         </button>
@@ -110,21 +110,21 @@ export default function ActionsDropDown(props: IActionsDropDownProps) {
                           <div className="flex items-center space-x-2">
                             {state.deploying
                               ?
-                                <>
-                                  <Spinner className="w-4 h-4 text-blue-300" />
-                                  <span>Deploying...</span>
-                                </>
+                              <>
+                                <Spinner className="w-4 h-4 text-blue-300" />
+                                <span>Deploying...</span>
+                              </>
                               :
-                                <>
-                                  <GlobeIcon className="w-4 h-4 text-gray-500" />
-                                  <span>Deploy</span>
-                                </>
+                              <>
+                                <GlobeIcon className="w-4 h-4 text-gray-500" />
+                                <span>Deploy</span>
+                              </>
                             }
                           </div>
                         </button>
                       )}
                     </Menu.Item>
-                    
+
                     {(prodCache && prodCache.public === 1) &&
                       <Menu.Item>
                         {({ active }: { active: boolean }) => (
@@ -139,15 +139,15 @@ export default function ActionsDropDown(props: IActionsDropDownProps) {
                             <div className="flex items-center space-x-2">
                               {state.undeploying
                                 ?
-                                  <>
-                                    <Spinner className="w-4 h-4 text-blue-300" />
-                                    <span>Undeploying...</span>
-                                  </>
+                                <>
+                                  <Spinner className="w-4 h-4 text-blue-300" />
+                                  <span>Undeploying...</span>
+                                </>
                                 :
-                                  <>
-                                    <XCircleIcon className="w-4 h-4 text-gray-500" />
-                                    <span>Undeploy</span>
-                                  </>
+                                <>
+                                  <XCircleIcon className="w-4 h-4 text-gray-500" />
+                                  <span>Undeploy</span>
+                                </>
                               }
                             </div>
                           </button>

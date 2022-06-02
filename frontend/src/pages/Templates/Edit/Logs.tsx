@@ -40,6 +40,7 @@ const ReadOnlyCodeBlock = (props: IReadOnlyCodeBlockProps) => {
         language={lang}
         onChange={(e: any) => { }}
         disabled={true}
+        lineWrapping={true}
       />
     </Tab.Panel>
   )
@@ -134,14 +135,14 @@ const Logs = (props: ILogsProps) => {
             defaultIndex={activeTab}
             manual
           >
-            <div className="flex justify-between mb-4 flex-row md:items-center overflow-x-auto">
+            <div className="flex justify-between mb-2 flex-row md:items-center overflow-x-auto">
               <Tab.List className="flex p-1 space-x-1">
                 {tabs.map((tab) => (
                   <Tab
                     key={tab}
                     className={({ selected }: { selected: boolean }) =>
                       classNames(
-                        'w-full p-2.5 px-3 text-md leading-5 font-medium w-24',
+                        'w-full py-2 px-5 text-sm leading-5 font-medium',
                         'focus:outline-none',
                         selected
                           ? 'dark:text-white text-gray-700 border-b-2'

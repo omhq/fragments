@@ -359,7 +359,7 @@ const TemplateEdit = (props: ITemplateEditProps) => {
                         window.open(`${API_SERVER_URL}/view/${id}/`, '_blank');
                       }}
                       type="button"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 sm:w-auto text-sm"
+                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-blue-600 text-sm font-medium text-white hover:bg-blue-700 sm:w-auto text-sm"
                     >
                       <div className="flex justify-center items-center space-x-2">
                         <ExternalLinkIcon className="w-4 h-4" />
@@ -371,7 +371,7 @@ const TemplateEdit = (props: ITemplateEditProps) => {
                   <button
                     onClick={() => onSave()}
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 sm:w-auto text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-3 py-1 bg-blue-600 text-sm font-medium text-white hover:bg-blue-700 sm:w-auto text-sm"
                   >
                     <div className="flex justify-center items-center space-x-2">
                       {(state.saving !== 0) &&
@@ -401,6 +401,7 @@ const TemplateEdit = (props: ITemplateEditProps) => {
                         language={"python"}
                         onChange={(e: any) => onCodeChange(e)}
                         disabled={false}
+                        lineWrapping={false}
                       />
                     </div>
                   </div>
