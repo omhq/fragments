@@ -1,6 +1,6 @@
 # Fragments
 
-Fragments is a platform to compose and manage custom data objects for HTTP transactions. Simply put, you can write simple jinja templates to represent a json or yaml (coming soon) response from an HTTP endpoint.
+Fragments is a platform to compose and manage custom data objects for HTTP transactions. Write simple jinja templates to represent a json or yaml payloads.
 
 - You can integrate different data sources, currently the project supports PostgreSQL and HTTP. 
 - Run transformations on the data through custom or built-in functions.
